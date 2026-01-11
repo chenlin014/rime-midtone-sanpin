@@ -2,9 +2,9 @@
 # encoding: utf-8
 
 schema:
-  schema_id: triple_midtone
+  schema_id: midtone_sanpin
   name: 中調三拼
-  version: "2026-01-07"
+  version: "2026-01-11"
   author:
     - 「陳林」<1chen0bryan@gmail.com>
     - 抄自「佛振」<chen.sst@gmail.com>
@@ -55,12 +55,12 @@ speller:
   algebra:
     __patch:
       - zhuyin:/pinyin_to_zhuyin
-      - triple_midtone:/zhuyin_to_midtone
-      - triple_midtone:/use_qwerty_layout
+      - midtone_sanpin:/zhuyin_to_midtone
+      - midtone_sanpin:/use_qwerty_layout
 
 translator:
   dictionary: terra_pinyin
-  prism: triple_midtone
+  prism: midtone_sanpin
   #preedit_format:
 
 reverse_lookup:
