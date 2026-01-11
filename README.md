@@ -1,5 +1,5 @@
 # 中調三拼
-配方： ℞ triple-midtone
+配方： ℞ midtone-sanpin
 
 Rime 中調三拼方案
 
