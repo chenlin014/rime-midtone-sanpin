@@ -9,14 +9,11 @@ zhuyin_to_midtone:
     - xform/q([iv])/k$1/
     - xform/x([iv])/h$1/
 
-    # 常用字音
-    # 麽的呢了個著
-    - derive/^([mdnlgZ])e5$/常$1/
-    # 吧嗎頭和
-    - derive/^ba5$/常b/
-    - derive/^ma5$/常p/
-    - derive/^tou5$/常t/
-    - derive/^he2$/常h/
+    # 聲母名調區
+    # 用於輸入知吃等空韻字和的了等常用字
+    - derive/([bpmf])o(?=\d)/$1名/
+    - derive/([dtnlgkh])e(?=\d)/$1名/
+    - xform/([ZCSrzcs])(?=\d)/$1名/
 
     # 把聲調放在聲母和韻母之間
     - xform/([iuvaoeEAIOUMNKGR]+)([1-5])$/$2$1/
@@ -24,8 +21,6 @@ zhuyin_to_midtone:
     - xform/^([1-5][iuv]?[aoeEAIOUMNKGR]+)$/無$1/
     # 聲介
     - xform/^([bpmfdtnlgkhjqxZCSrzcs][1-5][iuv])$/$1无/
-    # 「空韻」
-    - xform/^([ZCSrzcs][1-5])$/$1ㄭ/
     # 唯介母
     - xform/^([1-5][iuv])$/介$1/
     # 換成眞注音
@@ -49,11 +44,11 @@ zhuyin_to_midtone:
     #- xform/Y3/寅/
     #- xform/Y4/卯/
     #- xform/Y5/辰/
-    - xform/5ㄭ/巳/
-    - xform/4ㄭ/午/
-    - xform/3ㄭ/未/
-    - xform/2ㄭ/申/
-    - xform/1ㄭ/酉/
+    - xform/名5/巳/
+    - xform/名4/午/
+    - xform/名3/未/
+    - xform/名2/申/
+    - xform/名1/酉/
     # 中排
     - xform/1ㄧ/壹/
     - xform/2ㄧ/貳/
@@ -73,7 +68,7 @@ use_qwerty_layout:
     # 聲母布局
     - xlit/ㄖㄔㄎㄊ＊＊ㄆㄘㄙ/qwertyuio/
     - xlit/ㄕㄓㄍㄉㄈㄏㄅㄗㄌ/asdfghjkl/
-    - xlit/常介無ㄋ＊＊ㄇ/zxcvbnm/
+    - xlit/＊介無ㄋ＊＊ㄇ/zxcvbnm/
     # QWERTY
     - xlit|甲乙丙丁戊己庚辛壬癸|qwertyuiop|
     - xlit|壹貳叄肆伍陸柒捌玖拾|asdfghjkl;|
@@ -84,7 +79,7 @@ use_wikibase_layout:
     # 聲母布局
     - xlit/ㄖㄔㄎㄊ＊＊ㄆㄘ/zvkl/'ug/
     - xlit/ㄕㄓㄍㄉㄈㄏㄅㄗㄌㄙ/sroedhaint/
-    - xlit/常介無ㄋ＊＊ㄇ/xwfc,.mybq/
+    - xlit/＊介無ㄋ＊＊ㄇ/xwfc,.mybq/
     # WIKIBASE
     - xlit|甲乙丙丁戊己庚辛壬癸|zvkl/'ugpj|
     - xlit|壹貳叄肆伍陸柒捌玖拾|sroedhaint|
