@@ -26,8 +26,10 @@ zhuyin_to_midtone:
 
     # 把聲調放在聲母和韻母之間
     - xform/([iuvaoeEAIOUMNKGR]+)([1-5])$/$2$1/
-    # 無聲母
-    - xform/^([1-5][iuv]?[aoeEAIOUMNKGR]+)$/無$1/
+    # 無聲有介
+    - xform/^([1-5][iuv][aoeEAIOUMNKGR]+)$/無$1/
+    # 無聲無介
+    - xform/^([1-5])([aoeEAIOUMNKGR]+)$/$2韻$1/
     # 聲介
     - xform/^([bpmfdtnlgkhjqxZCSrzcs][1-5][iuv])$/$1无/
     # 唯介母
@@ -48,11 +50,11 @@ zhuyin_to_midtone:
     - xform/2ㄨ/壬/
     - xform/1ㄨ/癸/
     # 下排
-    #- xform/Y1/子/
-    #- xform/Y2/丑/
-    #- xform/Y3/寅/
-    #- xform/Y4/卯/
-    #- xform/Y5/辰/
+    - xform/韻1/子/
+    - xform/韻2/丑/
+    - xform/韻3/寅/
+    - xform/韻4/卯/
+    - xform/韻5/辰/
     - xform/名5/巳/
     - xform/名4/午/
     - xform/名3/未/
@@ -76,7 +78,7 @@ use_qwerty_layout:
     - xlit|＊介無ㄋ＊＊ㄇ|zxcvbnm|
     # 韻母布局
     - xlit|ㄞㄝㄛ|uio|
-    - xlit|ㄣㄥㄤㄢㄦㄜㄚㄝㄛ无|asdfghjkl;|
+    - xlit|ㄣㄥㄤㄢㄦㄜㄚㄟㄡ无|asdfghjkl;|
     - xlit|ㄠ|m|
     # QWERTY
     - xlit|甲乙丙丁戊己庚辛壬癸|qwertyuiop|
@@ -91,7 +93,7 @@ use_wikibase_layout:
     - xlit|＊介無ㄋ＊＊ㄇ|xwfc,.mybq|
     # 韻母布局
     - xlit|ㄞㄝㄛ|ugp|
-    - xlit|ㄣㄥㄤㄢㄦㄜㄚㄝㄛ无|sroedhaint|
+    - xlit|ㄣㄥㄤㄢㄦㄜㄚㄟㄡ无|sroedhaint|
     - xlit|ㄠ|m|
     # WIKIBASE
     - xlit|甲乙丙丁戊己庚辛壬癸|zvkl'?ugpj|
