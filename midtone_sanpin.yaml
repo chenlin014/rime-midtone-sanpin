@@ -39,22 +39,22 @@ zhuyin_to_midtone:
 
     # 介調組合的鍵位
     # 上排
-    - xform/1ㄩ/甲/
-    - xform/2ㄩ/乙/
-    - xform/3ㄩ/丙/
-    - xform/4ㄩ/丁/
-    - xform/5ㄩ/戊/
+    - xform/韻1/甲/
+    - xform/韻2/乙/
+    - xform/韻3/丙/
+    - xform/韻4/丁/
+    - xform/韻5/戊/
     - xform/5ㄨ/己/
     - xform/4ㄨ/庚/
     - xform/3ㄨ/辛/
     - xform/2ㄨ/壬/
     - xform/1ㄨ/癸/
     # 下排
-    - xform/韻1/子/
-    - xform/韻2/丑/
-    - xform/韻3/寅/
-    - xform/韻4/卯/
-    - xform/韻5/辰/
+    - xform/1ㄩ/子/
+    - xform/2ㄩ/丑/
+    - xform/3ㄩ/寅/
+    - xform/4ㄩ/卯/
+    - xform/5ㄩ/辰/
     - xform/名5/巳/
     - xform/名4/午/
     - xform/名3/未/
