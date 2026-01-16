@@ -66,18 +66,18 @@ zhuyin_to_midtone:
     - xform/5ㄧ/伍/
     - xlit|54321|陸柒捌玖拾|
 
-    # 韻母的鍵位
-    - xlit|ㄣㄥㄤㄢㄦㄜㄚㄝㄛ无|壹貳叄肆伍陸柒捌玖拾|
-    - xlit|ㄞㄟㄠㄡ|庚辛午申|
-
 # == 鍵盤佈局 ==
 
 use_qwerty_layout:
   __append:
     # 聲母布局
-    - xlit/ㄖㄔㄎㄊ＊＊ㄆㄘㄙ/qwertyuio/
-    - xlit/ㄕㄓㄍㄉㄈㄏㄅㄗㄌ/asdfghjkl/
-    - xlit/＊介無ㄋ＊＊ㄇ/zxcvbnm/
+    - xlit|ㄖㄔㄎㄊ＊＊ㄆㄘㄙ|qwertyuio|
+    - xlit|ㄕㄓㄍㄉㄈㄏㄅㄗㄌ|asdfghjkl|
+    - xlit|＊介無ㄋ＊＊ㄇ|zxcvbnm|
+    # 韻母布局
+    - xlit|ㄞㄝㄛ|uio|
+    - xlit|ㄣㄥㄤㄢㄦㄜㄚㄝㄛ无|asdfghjkl;|
+    - xlit|ㄠ|m|
     # QWERTY
     - xlit|甲乙丙丁戊己庚辛壬癸|qwertyuiop|
     - xlit|壹貳叄肆伍陸柒捌玖拾|asdfghjkl;|
@@ -86,10 +86,14 @@ use_qwerty_layout:
 use_wikibase_layout:
   __append:
     # 聲母布局
-    - xlit/ㄖㄔㄎㄊ＊＊ㄆㄘ/zvkl/'ug/
-    - xlit/ㄕㄓㄍㄉㄈㄏㄅㄗㄌㄙ/sroedhaint/
-    - xlit/＊介無ㄋ＊＊ㄇ/xwfc,.mybq/
+    - xlit|ㄖㄔㄎㄊ＊＊ㄆㄘ|zvkl|'ug|
+    - xlit|ㄕㄓㄍㄉㄈㄏㄅㄗㄌㄙ|sroedhaint|
+    - xlit|＊介無ㄋ＊＊ㄇ|xwfc,.mybq|
+    # 韻母布局
+    - xlit|ㄞㄝㄛ|ugp|
+    - xlit|ㄣㄥㄤㄢㄦㄜㄚㄝㄛ无|sroedhaint|
+    - xlit|ㄠ|m|
     # WIKIBASE
-    - xlit|甲乙丙丁戊己庚辛壬癸|zvkl/'ugpj|
+    - xlit|甲乙丙丁戊己庚辛壬癸|zvkl'?ugpj|
     - xlit|壹貳叄肆伍陸柒捌玖拾|sroedhaint|
     - xlit|子丑寅卯辰巳午未申酉|xwfc,.mybq|
