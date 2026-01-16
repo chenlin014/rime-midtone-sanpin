@@ -9,6 +9,15 @@ zhuyin_to_midtone:
     - xform/q([iv])/k$1/
     - xform/x([iv])/h$1/
 
+    # ㄧㄛ通ㄧㄡ
+    - derive/iU/io/
+    # ㄧㄟ通ㄧㄝ
+    - derive/iE/iI/
+    # ㄨㄝ通ㄨㄟ
+    - derive/uI/uE/
+    # ㄨㄡ通ㄨㄛ
+    - derive/uo/uU/
+
     # 聲母名調區
     # 用於輸入知吃等空韻字和的了等常用字
     - derive/([bpmf])o(?=\d)/$1名/
