@@ -87,6 +87,10 @@ key_binder:
       - key_bindings:/paging_with_minus_equal
       - key_bindings:/numbered_mode_switch
 
+editor:
+  bindings:
+    Escape: commit_script_text
+
 recognizer:
   import_preset: default
   patterns:
