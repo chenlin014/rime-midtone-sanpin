@@ -144,53 +144,55 @@ use_qwerty_layout:
 revert_qwerty:
   __append:
     # 無聲無介
-    - xform/(^.|\s.)q($|\s)/$1韻1$2/
-    - xform/(^.|\s.)w($|\s)/$1韻2$2/
-    - xform/(^.|\s.)e($|\s)/$1韻3$2/
-    - xform/(^.|\s.)r($|\s)/$1韻4$2/
-    - xform/(^.|\s.)t($|\s)/$1韻5$2/
+    - xform/(?<=\b)(.)q(?=\b)/韻1$1/
+    - xform/(?<=\b)(.)w(?=\b)/韻2$1/
+    - xform/(?<=\b)(.)e(?=\b)/韻3$1/
+    - xform/(?<=\b)(.)r(?=\b)/韻4$1/
+    - xform/(?<=\b)(.)t(?=\b)/韻5$1/
 
     # 恢復聲母
-    - xform/(^|\s)q/$1ㄖ/
-    - xform/(^|\s)w/$1ㄔ/
-    - xform/(^|\s)e/$1ㄎ/
-    - xform/(^|\s)r/$1ㄊ/
-    - xform/(^|\s)u/$1ㄆ/
-    - xform/(^|\s)i/$1ㄘ/
-    - xform/(^|\s)o/$1ㄙ/
+    - xform/(?<=\b)q/ㄖ/
+    - xform/(?<=\b)w/ㄔ/
+    - xform/(?<=\b)e/ㄎ/
+    - xform/(?<=\b)r/ㄊ/
+    - xform/(?<=\b)u/ㄆ/
+    - xform/(?<=\b)i/ㄘ/
+    - xform/(?<=\b)o/ㄙ/
 
-    - xform/(^|\s)a/$1ㄕ/
-    - xform/(^|\s)s/$1ㄓ/
-    - xform/(^|\s)d/$1ㄍ/
-    - xform/(^|\s)f/$1ㄉ/
-    - xform/(^|\s)g/$1ㄈ/
-    - xform/(^|\s)h/$1ㄏ/
-    - xform/(^|\s)j/$1ㄅ/
-    - xform/(^|\s)k/$1ㄗ/
-    - xform/(^|\s)l/$1ㄌ/
+    - xform/(?<=\b)a/ㄕ/
+    - xform/(?<=\b)s/ㄓ/
+    - xform/(?<=\b)d/ㄍ/
+    - xform/(?<=\b)f/ㄉ/
+    - xform/(?<=\b)g/ㄈ/
+    - xform/(?<=\b)h/ㄏ/
+    - xform/(?<=\b)j/ㄅ/
+    - xform/(?<=\b)k/ㄗ/
+    - xform/(?<=\b)l/ㄌ/
 
-    - xform/(^|\s)x/$1介/
-    - xform/(^|\s)c/$1無/
-    - xform/(^|\s)v/$1ㄋ/
-    - xform/(^|\s)m/$1ㄇ/
+    - xform/(?<=\b)x/介/
+    - xform/(?<=\b)c/無/
+    - xform/(?<=\b)v/ㄋ/
+    - xform/(?<=\b)m/ㄇ/
 
     # 恢復韻母
-    - xform/(?<=\S\S)u($|\s)/ㄞ$1/
-    - xform/(?<=\S\S)i($|\s)/ㄝ$1/
-    - xform/(?<=\S\S)o($|\s)/ㄛ$1/
+    - xform/(?<!介)u(?=\b)/ㄞ/
+    - xform/(?<!介)i(?=\b)/ㄝ/
+    - xform/(?<!介)o(?=\b)/ㄛ/
 
-    - xform/(?<=\S\S)a($|\s)/ㄣ$1/
-    - xform/(?<=\S\S)s($|\s)/ㄥ$1/
-    - xform/(?<=\S\S)d($|\s)/ㄤ$1/
-    - xform/(?<=\S\S)f($|\s)/ㄢ$1/
-    - xform/(?<=\S\S)g($|\s)/ㄦ$1/
-    - xform/(?<=\S\S)h($|\s)/ㄜ$1/
-    - xform/(?<=\S\S)j($|\s)/ㄚ$1/
-    - xform/(?<=\S\S)k($|\s)/ㄟ$1/
-    - xform/(?<=\S\S)l($|\s)/ㄡ$1/
-    - xform/(?<=\S\S);($|\s)/无$1/
+    - xform/(?<!介)a(?=\b)/ㄣ/
+    - xform/(?<!介)s(?=\b)/ㄥ/
+    - xform/(?<!介)d(?=\b)/ㄤ/
+    - xform/(?<!介)f(?=\b)/ㄢ/
+    - xform/(?<!介)g(?=\b)/ㄦ/
+    - xform/(?<!介)h(?=\b)/ㄜ/
+    - xform/(?<!介)j(?=\b)/ㄚ/
+    - xform/(?<!介)k(?=\b)/ㄟ/
+    - xform/(?<!介)l(?=\b)/ㄡ/
+    - xform/(?<!介);(?=\b)/无/
 
-    - xform/(?<=\S\S)m($|\s)/ㄠ$1/
+    - xform/(?<!介)m(?=\b)/ㄠ/
+
+    - xform/(韻\d)(.)/$2$1/
 
     # 恢復通用鍵位名
     - xlit|qwertyuiop|甲乙丙丁戊己庚辛壬癸|
