@@ -133,8 +133,8 @@ use_qwerty_layout:
     - xlit|ㄕㄓㄍㄉㄈㄏㄅㄗㄌ|asdfghjkl|
     - xlit|＊介無ㄋ＊＊ㄇ|zxcvbnm|
     # 韻母布局
-    - xlit|ㄞㄝㄛ|uio|
-    - xlit|ㄣㄥㄤㄢㄦㄜㄚㄟㄡ无|asdfghjkl;|
+    - xlit|ㄦㄞㄝㄛ|wuio|
+    - xlit|ㄣㄥㄤㄢ＊ㄜㄚㄟㄡ无|asdfghjkl;|
     - xlit|ㄠ|m|
     # QWERTY
     - xlit|甲乙丙丁戊己庚辛壬癸|qwertyuiop|
@@ -175,6 +175,7 @@ revert_qwerty:
     - xform/(?<=\b)m/ㄇ/
 
     # 恢復韻母
+    - xform/(?<!介)w(?=\b)/ㄦ/
     - xform/(?<!介)u(?=\b)/ㄞ/
     - xform/(?<!介)i(?=\b)/ㄝ/
     - xform/(?<!介)o(?=\b)/ㄛ/
@@ -183,7 +184,6 @@ revert_qwerty:
     - xform/(?<!介)s(?=\b)/ㄥ/
     - xform/(?<!介)d(?=\b)/ㄤ/
     - xform/(?<!介)f(?=\b)/ㄢ/
-    - xform/(?<!介)g(?=\b)/ㄦ/
     - xform/(?<!介)h(?=\b)/ㄜ/
     - xform/(?<!介)j(?=\b)/ㄚ/
     - xform/(?<!介)k(?=\b)/ㄟ/
