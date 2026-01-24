@@ -1,0 +1,10 @@
+# Rime dictionary
+# encoding: utf-8
+
+---
+name: midtone_sanpin
+version: "2026.01.24"
+sort: by_weight
+import_tables:
+  - terra_pinyin
+...

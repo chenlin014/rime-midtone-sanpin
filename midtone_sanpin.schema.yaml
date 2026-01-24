@@ -4,10 +4,9 @@
 schema:
   schema_id: midtone_sanpin
   name: 中調三拼
-  version: "2026-01-22"
+  version: "2026-01-24"
   author:
     - 「陳林」<1chen0bryan@gmail.com>
-    - 抄自「佛振」<chen.sst@gmail.com>
   description: |
     地球拼音＋三拼方案。
   dependencies:
@@ -59,7 +58,7 @@ speller:
       - midtone_sanpin:/use_qwerty_layout
 
 translator:
-  dictionary: terra_pinyin
+  dictionary: midtone_sanpin
   prism: midtone_sanpin
   preedit_format:
     __patch:

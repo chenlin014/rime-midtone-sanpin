@@ -28,9 +28,9 @@ zhuyin_to_midtone:
 
     # 把聲調放在聲母和韻母之間
     - xform/([iuvaoeEAIOUMNKGR]+)([1-5])$/$2$1/
-    # 無聲有頭
+    # 無聲母、有韻頭
     - xform/^([1-5][iuv][aoeEAIOUMNKGR]+)$/無$1/
-    # 無聲無頭
+    # 無聲母、無韻頭
     - xform/^([1-5])([aoeEAIOUMNKGR]+)$/$2韻$1/
     # 聲母加韻頭
     - xform/^([bpmfdtnlgkhjqxZCSrzcs][1-5][iuv])$/$1无/
