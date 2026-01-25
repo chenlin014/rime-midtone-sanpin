@@ -143,7 +143,7 @@ midtone_to_zhuyin:
     - xform/叄/3ㄧ/
     - xform/肆/4ㄧ/
     - xform/伍/5ㄧ/
-    - xlit|陸柒玖捌拾|54321|
+    - xlit|陸柒捌玖拾|54321|
 
     - xform/(ㄅ|ㄆ|ㄇ|ㄈ)名/$1ㄛ/
     - xform/(ㄉ|ㄊ|ㄋ|ㄌ|ㄍ|ㄎ|ㄏ)名/$1ㄜ/
