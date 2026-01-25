@@ -53,7 +53,7 @@ speller:
   delimiter: " '"
   algebra:
     __patch:
-      - zhuyin:/pinyin_to_zhuyin
+      - midtone_sanpin:/pinyin_to_zhuyin
       - midtone_sanpin:/zhuyin_to_midtone
       - midtone_sanpin:/use_qwerty_layout
 
