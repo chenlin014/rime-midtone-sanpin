@@ -65,7 +65,7 @@ translator:
       - midtone_sanpin:/revert_qwerty
 
       - midtone_sanpin:/midtone_to_zhuyin
-      #- midtone_sanpin:/bpmf_unmark_first_tone # 不標一聲
+      - midtone_sanpin:/bpmf_unmark_first_tone # 不標一聲
       - __append: [ xlit|ㆬㄯ|ㄇㄋ| ]
 
 reverse_lookup:
