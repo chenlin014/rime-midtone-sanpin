@@ -1,5 +1,5 @@
 # 調號拼音轉注音
-# 分叉自rime-bopomofo (https://github.com/rime/rime-bopomofo)
+# 分流自rime-bopomofo (https://github.com/rime/rime-bopomofo)
 pinyin_to_zhuyin:
   __append:
     - xform/^r5$/er5/  # 〜兒
@@ -28,9 +28,9 @@ pinyin_to_zhuyin:
     - xform/([iv])e/$1E/
 
     # 鼻韻
-    - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)m(\d)$/$1W$2/ # 呣
-    - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)n(\d)$/$1L$2/
-    - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)ng(\d)$/$1H$2/
+    - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)m(\d)$/$1W$2/  # ㆬ（呣）
+    - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)n(\d)$/$1L$2/  # ㄯ
+    - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)ng(\d)$/$1H$2/ # ㆭ
 
 zhuyin_to_midtone:
   __append:
@@ -108,6 +108,11 @@ zhuyin_to_midtone:
     - xform/5ㄧ/伍/
     - xlit|54321|陸柒捌玖拾|
 
+# ＝＝＝＝＝＝＝ 
+# ＝＝顯示碼＝＝ 
+# ＝＝＝＝＝＝＝ 
+
+# 注音
 midtone_to_zhuyin:
   __append:
     # 上排
@@ -142,13 +147,15 @@ midtone_to_zhuyin:
 
     - xform/(ㄅ|ㄆ|ㄇ|ㄈ)名/$1ㄛ/
     - xform/(ㄉ|ㄊ|ㄋ|ㄌ|ㄍ|ㄎ|ㄏ)名/$1ㄜ/
-    - xform/(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)名/$1/
 
-    - xform/([1-5])(\S+)/$2$1/
-    - xform/(?<!介)(ㄧ|ㄨ|ㄩ)([1-5])(?!无)/$2$1/
-    - xform/(\S+)5$/5$1/
-    - xform/(\S+)5 /5$1 /
-    - xform/(5)(ㄧ|ㄨ|ㄩ)/$2$1/
+    # 二缺一
+    - xform/([1-5])((ㄧ|ㄨ|ㄩ)?(ㄚ|ㄛ|ㄜ|ㄝ|ㄞ|ㄟ|ㄠ|ㄡ|ㄢ|ㄣ|ㄤ|ㄥ|ㄦ|ㆬ|ㄯ|ㆭ|无))/$2$1"/
+    - xform/(ㄅ|ㄆ|ㄇ|ㄈ|ㄉ|ㄊ|ㄋ|ㄌ|ㄍ|ㄎ|ㄏ|ㄐ|ㄑ|ㄒ|ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)([1-5])/"$2$1/
+    - xform/(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)名/$1/
+    - xform/(\S+)(5)(?=")/$2$1/
+    - xform/(?<=")(5)(\S+)/$2$1/
+    - xform/"//
+
     - xlit/12345/ˉˊˇˋ˙/
 
     - xform/无|韻//
@@ -167,7 +174,16 @@ midtone_to_zhuyin:
     - xform/ㄎ(ㄧ|ㄨ|ㄩ)/ㄑ$1/
     - xform/ㄏ(ㄧ|ㄨ|ㄩ)/ㄒ$1/
 
-# == 鍵盤佈局 ==
+# 不標一聲
+#bpmf_unmark_first_tone:
+#  __append:
+#    - xform/(ㄧ|ㄨ|ㄩ|ㄚ|ㄛ|ㄜ|ㄝ|ㄞ|ㄟ|ㄠ|ㄡ|ㄢ|ㄣ|ㄤ|ㄥ|ㄦ|ㆬ|ㄯ|ㆭ)ˉ/$1/
+#    - xform/(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)/$1＊/ # 標明未定調
+#    - xform/(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)ˉ/$1/
+
+# ＝＝＝＝＝＝＝＝
+# ＝＝鍵盤佈局＝＝
+# ＝＝＝＝＝＝＝＝
 
 use_qwerty_layout:
   __append:
