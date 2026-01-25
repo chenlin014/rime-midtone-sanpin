@@ -5,6 +5,7 @@
 name: midtone_sanpin
 version: "2026.01.24"
 sort: by_weight
+use_preset_vocabulary: true
 import_tables:
   - terra_pinyin
 ...
