@@ -1,4 +1,4 @@
-# 調號拼音轉注音
+# 數字拼音轉字母注音
 # 分流自rime-bopomofo (https://github.com/rime/rime-bopomofo)
 pinyin_to_zhuyin:
   __append:
@@ -25,6 +25,7 @@ pinyin_to_zhuyin:
     - xform/en/N/
     - xform/er/R/
     - xform/eh/E/
+    - xform/ê/E/
     - xform/([iv])e/$1E/
 
     # 鼻韻
@@ -113,6 +114,8 @@ zhuyin_to_midtone:
 # ＝＝＝＝＝＝＝ 
 
 # －－注音－－
+
+# 中調轉注音
 midtone_to_zhuyin:
   __append:
     # 上排
@@ -167,12 +170,12 @@ midtone_to_zhuyin:
     - xform/ㄨㄡ/ㄨㄛ/
     - xform/ㄩㄟ/ㄩㄝ/
 
-    - xform/ㄗ(ㄧ|ㄨ|ㄩ)/ㄐ$1/
-    - xform/ㄘ(ㄧ|ㄨ|ㄩ)/ㄑ$1/
-    - xform/ㄙ(ㄧ|ㄨ|ㄩ)/ㄒ$1/
-    - xform/ㄍ(ㄧ|ㄨ|ㄩ)/ㄐ$1/
-    - xform/ㄎ(ㄧ|ㄨ|ㄩ)/ㄑ$1/
-    - xform/ㄏ(ㄧ|ㄨ|ㄩ)/ㄒ$1/
+    - xform/ㄗ(ㄧ|ㄩ)/ㄐ$1/
+    - xform/ㄘ(ㄧ|ㄩ)/ㄑ$1/
+    - xform/ㄙ(ㄧ|ㄩ)/ㄒ$1/
+    - xform/ㄍ(ㄧ|ㄩ)/ㄐ$1/
+    - xform/ㄎ(ㄧ|ㄩ)/ㄑ$1/
+    - xform/ㄏ(ㄧ|ㄩ)/ㄒ$1/
 
 # 不標一聲
 bpmf_unmark_first_tone:
@@ -180,6 +183,94 @@ bpmf_unmark_first_tone:
     - xform/(ㄧ|ㄨ|ㄩ|ㄚ|ㄛ|ㄜ|ㄝ|ㄞ|ㄟ|ㄠ|ㄡ|ㄢ|ㄣ|ㄤ|ㄥ|ㄦ|ㆬ|ㄯ|ㆭ)ˉ/$1/
     - xform/(^|\s)(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)$/$1$2＊/ # 標明未定調
     - xform/(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)ˉ/$1/
+
+# －－拼音－－
+
+# 注音轉數字拼音
+zhuyin_to_pin1yin1:
+  __append:
+    - xlit|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ|bpmfdtnlgkhjqxZCSrzcs|
+    - xlit|ㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㆬㄯㆭ|iuvaoeEAIOUMNKGRWLH|
+    - xlit|ˉˊˇˋ˙|12345|
+    - xform/(?<=\b)(5)(\S+)/$2$1/
+    - xform/(\S+)(5)(?=\b)/$2$1/
+
+    - xform/([iv])E/$1e/
+    - xform/E/ê$1/
+    - xform/R/er/
+    - xform/N/en/
+    - xform/M/an/
+    - xform/G/eng/
+    - xform/K/ang/
+    - xform/U/ou/
+    - xform/O/ao/
+    - xform/I/ei/
+    - xform/A/ai/
+    - xform/(?<=\b)([zcsrZCS])(\d)/$1i$2/
+    - xform/S/sh/
+    - xform/C/ch/
+    - xform/Z/zh/
+    - xform/([iuv])en/$1n/
+    - xform/(?<=\b)v/iu/
+    - xform/v(?=ng)/iu/
+    - xform/([jgx])v/$1u/
+    - xform/(?<=\b)i(\d|\b|n)/yi$1/
+    - xform/(?<=\b)u(\d|\b)/wu$1/
+    - xform/(?<=\b)i/y/
+    - xform/(?<=\b)u/w/
+    - xform/ung/ong/
+    - xform/uei/ui/
+    - xform/iou/iu/
+    - xform/v/ü/
+    - xform/W/m/
+    - xform/L/n/
+    - xform/H/ng/
+
+# 數字拼音轉普通拼音
+# 分流自地球拼音
+pin1yin1_to_pinyin:
+  __append:
+    - xform/5(?=\b)//
+
+    - xform ([aeiou])(ng?|r)([1234]) $1$3$2
+    - xform ([aeo])([iuo])([1234]) $1$3$2
+    - xform ng([1234]) n$1g
+    - xform a1 ā
+    - xform a2 á
+    - xform a3 ǎ
+    - xform a4 à
+    - xform e1 ē
+    - xform e2 é
+    - xform e3 ě
+    - xform e4 è
+    - xform o1 ō
+    - xform o2 ó
+    - xform o3 ǒ
+    - xform o4 ò
+    - xform i1 ī
+    - xform i2 í
+    - xform i3 ǐ
+    - xform i4 ì
+    - xform u1 ū
+    - xform u2 ú
+    - xform u3 ǔ
+    - xform u4 ù
+    - xform ü1 ǖ
+    - xform ü2 ǘ
+    - xform ü3 ǚ
+    - xform ü4 ǜ
+    - xform ê1 ê̄
+    - xform ê2 ế
+    - xform ê3 ê̌
+    - xform ê4 ề
+    - xform m1 m̄
+    - xform m2 ḿ
+    - xform m3 m̌ 
+    - xform m4 m̀
+    - xform n1 n̄
+    - xform n2 ń
+    - xform n3 ň
+    - xform n4 ǹ
 
 # ＝＝＝＝＝＝＝＝
 # ＝＝鍵盤佈局＝＝

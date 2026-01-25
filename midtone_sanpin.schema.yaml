@@ -4,7 +4,7 @@
 schema:
   schema_id: midtone_sanpin
   name: 中調三拼
-  version: "2026-01-24"
+  version: "2026-01-25"
   author:
     - 「陳林」<1chen0bryan@gmail.com>
   description: |
@@ -65,8 +65,10 @@ translator:
       - midtone_sanpin:/revert_qwerty
 
       - midtone_sanpin:/midtone_to_zhuyin
-      - midtone_sanpin:/bpmf_unmark_first_tone # 不標一聲
-      - __append: [ xlit|ㆬㄯ|ㄇㄋ| ]
+      #- midtone_sanpin:/bpmf_unmark_first_tone # 不標一聲
+      #- __append: [ xlit|ㆬㄯ|ㄇㄋ| ]
+
+      #- midtone_sanpin:/zhuyin_to_pin1yin1
 
 reverse_lookup:
   dictionary: stroke
