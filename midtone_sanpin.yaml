@@ -1,5 +1,8 @@
 zhuyin_to_midtone:
   __append:
+    # 若無標明聲調、則默認爲是輕聲
+    - xform/([a-zA-Z])(?=\b)/$15/
+
     # 尖音
     - derive/j([iv])/z$1/
     - derive/q([iv])/c$1/
