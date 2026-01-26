@@ -68,7 +68,7 @@ translator:
       #- midtone_sanpin:/bpmf_unmark_first_tone # 不標一聲
       #- __append: [ xlit|ㆬㄯ|ㄇㄋ| ]
 
-      - midtone_sanpin:/zhuyin_to_terra
+      #- midtone_sanpin:/zhuyin_to_terra
 
 reverse_lookup:
   dictionary: stroke
