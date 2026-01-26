@@ -208,7 +208,7 @@ zhuyin_to_terra:
     - xform/([iuv])en/$1n/
     - xform/(?<=\b)v/iu/
     - xform/v(?=ng)/iu/
-    - xform/([jgx])v/$1u/
+    - xform/([jqx])v/$1u/
     - xform/(?<=\b)i(\d|\b|n)/yi$1/
     - xform/(?<=\b)u(\d|\b)/wu$1/
     - xform/(?<=\b)i/y/
