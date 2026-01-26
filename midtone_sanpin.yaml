@@ -186,8 +186,9 @@ zhuyin_to_terra:
     - xlit|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ|bpmfdtnlgkhjqxZCSrzcs|
     - xlit|ㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㆬㄯㆭ|iuvaoeEAIOUMNKGRWLH|
     - xlit|ˉˊˇˋ˙|12345|
-    - xform/(?<=\b)(5)(\S+)/$2$1/
-    - xform/(\S+)(5)(?=\b)/$2$1/
+    - xform/(?<=\b)5(\S+)/$1˙/
+    - xform/(\S+)5(?=\b)/˙$1/
+    - xform/˙/5/
 
     - xform/([iv])E/$1e/
     - xform/E/ê$1/
@@ -265,6 +266,8 @@ terra_to_pinyin:
     - xform n2 ń
     - xform n3 ň
     - xform n4 ǹ
+
+    - xlit|12345|ˉˊˇˋ˙|
 
 # ＝＝＝＝＝＝＝＝
 # ＝＝鍵盤佈局＝＝
