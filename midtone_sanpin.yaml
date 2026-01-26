@@ -1,6 +1,6 @@
-# 數字拼音轉字母注音
+# 地球拼音轉字母注音
 # 分流自rime-bopomofo (https://github.com/rime/rime-bopomofo)
-pinyin_to_zhuyin:
+terra_to_zhuyin:
   __append:
     - xform/^r5$/er5/  # 〜兒
     - xform/iu/iou/
@@ -33,6 +33,7 @@ pinyin_to_zhuyin:
     - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)n(\d)$/$1L$2/  # ㄯ
     - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)ng(\d)$/$1H$2/ # ㆭ
 
+# 注音轉中調三拼
 zhuyin_to_midtone:
   __append:
     # 若無標明聲調、則默認爲是輕聲
@@ -109,13 +110,7 @@ zhuyin_to_midtone:
     - xform/5ㄧ/伍/
     - xlit|54321|陸柒捌玖拾|
 
-# ＝＝＝＝＝＝＝ 
-# ＝＝顯示碼＝＝ 
-# ＝＝＝＝＝＝＝ 
-
-# －－注音－－
-
-# 中調轉注音
+# 中調三拼轉注音
 midtone_to_zhuyin:
   __append:
     # 上排
@@ -177,17 +172,15 @@ midtone_to_zhuyin:
     - xform/ㄎ(ㄧ|ㄩ)/ㄑ$1/
     - xform/ㄏ(ㄧ|ㄩ)/ㄒ$1/
 
-# 不標一聲
+# 注音不標一聲
 bpmf_unmark_first_tone:
   __append:
     - xform/(ㄧ|ㄨ|ㄩ|ㄚ|ㄛ|ㄜ|ㄝ|ㄞ|ㄟ|ㄠ|ㄡ|ㄢ|ㄣ|ㄤ|ㄥ|ㄦ|ㆬ|ㄯ|ㆭ)ˉ/$1/
     - xform/(^|\s)(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)$/$1$2＊/ # 標明未定調
     - xform/(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)ˉ/$1/
 
-# －－拼音－－
-
-# 注音轉數字拼音
-zhuyin_to_pin1yin1:
+# 注音轉地球拼音
+zhuyin_to_terra:
   __append:
     - xlit|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ|bpmfdtnlgkhjqxZCSrzcs|
     - xlit|ㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㆬㄯㆭ|iuvaoeEAIOUMNKGRWLH|
@@ -226,9 +219,9 @@ zhuyin_to_pin1yin1:
     - xform/L/n/
     - xform/H/ng/
 
-# 數字拼音轉普通拼音
-# 分流自地球拼音
-pin1yin1_to_pinyin:
+# 地球拼音轉普通拼音
+# 分流自地球拼音(https://github.com/rime/rime-terra-pinyin)
+terra_to_pinyin:
   __append:
     - xform/5(?=\b)//
 

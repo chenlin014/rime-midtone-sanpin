@@ -53,7 +53,7 @@ speller:
   delimiter: " '"
   algebra:
     __patch:
-      - midtone_sanpin:/pinyin_to_zhuyin
+      - midtone_sanpin:/terra_to_zhuyin
       - midtone_sanpin:/zhuyin_to_midtone
       - midtone_sanpin:/use_qwerty_layout
 
@@ -68,7 +68,7 @@ translator:
       #- midtone_sanpin:/bpmf_unmark_first_tone # 不標一聲
       #- __append: [ xlit|ㆬㄯ|ㄇㄋ| ]
 
-      #- midtone_sanpin:/zhuyin_to_pin1yin1
+      - midtone_sanpin:/zhuyin_to_terra
 
 reverse_lookup:
   dictionary: stroke
