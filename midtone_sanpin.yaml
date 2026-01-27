@@ -191,7 +191,7 @@ zhuyin_to_terra:
     - xform/˙/5/
 
     - xform/([iv])E/$1e/
-    - xform/E/ê$1/
+    - xform/E/eh/
     - xform/R/er/
     - xform/N/en/
     - xform/M/an/
@@ -216,7 +216,6 @@ zhuyin_to_terra:
     - xform/ung/ong/
     - xform/uei/ui/
     - xform/iou/iu/
-    - xform/v/ü/
     - xform/W/m/
     - xform/L/n/
     - xform/H/ng/
@@ -225,6 +224,8 @@ zhuyin_to_terra:
 # 分流自地球拼音(https://github.com/rime/rime-terra-pinyin)
 terra_to_pinyin:
   __append:
+    - xform/eh/ê/
+    - xform/v/ü/
     - xform/5(?=\b)//
 
     - xform ([aeiou])(ng?|r)([1234]) $1$3$2
