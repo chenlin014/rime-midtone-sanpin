@@ -206,13 +206,14 @@ zhuyin_to_terra:
     - xform/C/ch/
     - xform/Z/zh/
     - xform/([iuv])en/$1n/
-    - xform/(?<=\b)v/iu/
-    - xform/v(?=ng)/iu/
-    - xform/([jqx])v/$1u/
     - xform/(?<=\b)i(\d|\b|n)/yi$1/
     - xform/(?<=\b)u(\d|\b)/wu$1/
     - xform/(?<=\b)i/y/
     - xform/(?<=\b)u/w/
+    - xform/wn/wen/
+    - xform/(?<=\b)v/iu/
+    - xform/v(?=ng)/iu/
+    - xform/([jqx])v/$1u/
     - xform/ung/ong/
     - xform/uei/ui/
     - xform/iou/iu/
