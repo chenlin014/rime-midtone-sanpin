@@ -49,8 +49,16 @@ end
 
 local function make_pinyin(onset, final, tone, rime_type)
 	local medial = ""
-	if not rime_type:match("[YM]") then
+	if not rime_type:match("^[YM]$") then
 		medial = rime_type
+	end
+
+	if rime_type == "M" then
+		if onset:match("^[bpmf]$") then
+			final = "o"
+		elseif onset:match("^[dtnlgkh]$") then
+			final = "e"
+		end
 	end
 
 	py = onset .. medial .. final
