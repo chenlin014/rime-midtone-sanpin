@@ -22,7 +22,52 @@ for i, key in ipairs(config.keyboard) do
 	end
 end
 
-ym_pattern = "^.[" .. ym_keys .. "]"
+tonal_letters = {
+	["a1"] = "ā",
+	["a2"] = "á",
+	["a3"] = "ǎ",
+	["a4"] = "à",
+	["e1"] = "ē",
+	["e2"] = "é",
+	["e3"] = "ě",
+	["e4"] = "è",
+	["o1"] = "ō",
+	["o2"] = "ó",
+	["o3"] = "ǒ",
+	["o4"] = "ò",
+	["i1"] = "ī",
+	["i2"] = "í",
+	["i3"] = "ǐ",
+	["i4"] = "ì",
+	["u1"] = "ū",
+	["u2"] = "ú",
+	["u3"] = "ǔ",
+	["u4"] = "ù",
+	["ü1"] = "ǖ",
+	["ü2"] = "ǘ",
+	["ü3"] = "ǚ",
+	["ü4"] = "ǜ",
+	["v1"] = "ǖ",
+	["v2"] = "ǘ",
+	["v3"] = "ǚ",
+	["v4"] = "ǜ",
+	["ê1"] = "ê̄",
+	["ê2"] = "ế",
+	["ê3"] = "ê̌",
+	["ê4"] = "ề",
+	["eh1"] = "ê̄",
+	["eh2"] = "ế",
+	["eh3"] = "ê̌",
+	["eh4"] = "ề",
+	["m1"] = "m̄",
+	["m2"] = "ḿ",
+	["m3"] = "m̌ ",
+	["m4"] = "m̀",
+	["n1"] = "n̄",
+	["n2"] = "ń",
+	["n3"] = "ň",
+	["n4"] = "ǹ",
+}
 
 local function split_input(inp, ymkeys, ikeys)
 	codes = {}
@@ -70,6 +115,8 @@ local function make_pinyin(onset, final, tone, rime_type)
 	py = py:gsub("^c([iv])", "q%1")
 	py = py:gsub("^s([iv])", "x%1")
 
+	py = py:gsub("([iuv])eh$", "%1e")
+
 	py = py:gsub("^([zcsr]h?)$", "%1i")
 	py = py:gsub("([iuv])en", "%1n")
 	py = py:gsub("^v", "iu")
@@ -89,8 +136,10 @@ local function make_pinyin(onset, final, tone, rime_type)
 end
 
 local function code_to_pinyin(code, maps)
-	if #code < 2 or #code > 3 then
-		return {err = "code length not in [2, 3]"}
+	if code == "" then return "" end
+
+	if #code > 3 then
+		return {err = "code length > 3"}
 	end
 
 	local rime_type = maps.key2type[code:sub(2,2)] or ""
@@ -99,7 +148,9 @@ local function code_to_pinyin(code, maps)
 	local onset = ""
 	local final = ""
 
-	if #code == 2 then
+	if #code == 1 then
+		return maps.key2onset[code] or code
+	elseif #code == 2 then
 		if rime_type == "Y" then
 			final = maps.key2final[code:sub(1,1)]
 		else
@@ -117,6 +168,26 @@ local function code_to_pinyin(code, maps)
 	return make_pinyin(onset, final, tone, rime_type)
 end
 
+function terra_to_pinyin(py)
+	py = py:gsub("5", "")
+
+	py = py:gsub("([aeiou])(ng?)([1234])", "%1%3%2")
+	py = py:gsub("([aeiou])(r)([1234])", "%1%3%2")
+	py = py:gsub("ng([1234])", "n%1g")
+
+	local core_tone = py:match(".h?%d")
+	local tonal_letter = tonal_letters[core_tone]
+
+	if tonal_letter then
+		py = py:gsub(core_tone, tonal_letter)
+	end
+
+	py = py:gsub("v", "ü")
+	py = py:gsub("eh", "ê")
+
+	return py
+end
+
 local M={}
 
 function M.init(env)
@@ -132,16 +203,27 @@ function M.func(inp, seg, env)
 	local codes = split_input(inp, ym_keys, i_keys)
 
 	local pinyin = ""
+	local preedit = ""
 	for _, code in ipairs(codes) do
 		py = code_to_pinyin(code, maps)
 		if py.err then return end
 		pinyin = pinyin .. py
+		preedit = preedit .. " " .. terra_to_pinyin(py)
+	end
+
+	preedit = preedit:gsub("^ ", "")
+	if codes.remainder then
+		preedit = preedit .. " " .. codes.remainder
+		--local cand = Candidate("midtone", seg.start, seg._end, preedit, " ")
+		--cand.preedit = preedit
+		--yield(cand)
 	end
 
 	local t = env.tran:query(pinyin,seg)
 	if not t then return end
 	for cand in t:iter() do
-		cand.preedit = inp
+		cand.preedit = preedit
+		cand.type = "midtone"
 		yield(cand)
 	end
 end
