@@ -2,13 +2,13 @@
 # encoding: utf-8
 
 schema:
-  schema_id: midtone_dev
-  name: 中調三拼
-  version: "2026-01-26"
+  schema_id: midtone_lua
+  name: 中調三拼（腳本）
+  version: "2026-04-01"
   author:
     - 「陳林」<1chen0bryan@gmail.com>
   description: |
-    地球拼音＋三拼方案。
+    中調三拼方案
   dependencies:
     - stroke
 
