@@ -110,12 +110,12 @@ local function make_pinyin(onset, final, tone, rime_type)
 
 	py = onset .. medial .. final
 
-	py = py:gsub("^g([iv])", "j%1")
-	py = py:gsub("^k([iv])", "q%1")
-	py = py:gsub("^h([iv])", "x%1")
-	py = py:gsub("^z([iv])", "j%1")
-	py = py:gsub("^c([iv])", "q%1")
-	py = py:gsub("^s([iv])", "x%1")
+	py = py:gsub("g([iv])", "j%1")
+	py = py:gsub("k([iv])", "q%1")
+	py = py:gsub("h([iv])", "x%1")
+	py = py:gsub("z([iv])", "j%1")
+	py = py:gsub("c([iv])", "q%1")
+	py = py:gsub("s([iv])", "x%1")
 
 	py = py:gsub("([iuv])eh$", "%1e")
 
@@ -175,6 +175,7 @@ function terra_to_normal(py)
 
 	py = py:gsub("([aeiou])(ng?)([1234])", "%1%3%2")
 	py = py:gsub("([aeiou])(r)([1234])", "%1%3%2")
+	py = py:gsub("([aeo])([iuo])([1234])", "%1%3%2")
 	py = py:gsub("ng([1234])", "n%1g")
 
 	local core_tone = py:match(".h?%d")
@@ -206,6 +207,14 @@ function gen_partial_pinyin(code, maps)
 	local py = maps.key2tone[code:sub(2,2)] or ""
 	py = py .. (maps.key2onset[code:sub(1,1)] or missing_sym)
 	py = py .. (maps.key2type[code:sub(2,2)] or missing_sym)
+
+	py = py:gsub("g([iv])", "j%1")
+           :gsub("k([iv])", "q%1")
+           :gsub("h([iv])", "x%1")
+           :gsub("z([iv])", "j%1")
+           :gsub("c([iv])", "q%1")
+           :gsub("s([iv])", "x%1")
+
 	return py
 end
 
