@@ -69,6 +69,51 @@ tonal_letters = {
 	["n4"] = "ǹ",
 }
 
+local py2zy = {
+	["b"] = "ㄅ",
+	["p"] = "ㄆ",
+	["m"] = "ㄇ",
+	["f"] = "ㄈ",
+	["d"] = "ㄉ",
+	["t"] = "ㄊ",
+	["n"] = "ㄋ",
+	["l"] = "ㄌ",
+	["g"] = "ㄍ",
+	["k"] = "ㄎ",
+	["h"] = "ㄏ",
+	["j"] = "ㄐ",
+	["q"] = "ㄑ",
+	["x"] = "ㄒ",
+	["zh"] = "ㄓ",
+	["ch"] = "ㄔ",
+	["sh"] = "ㄕ",
+	["r"] = "ㄖ",
+	["z"] = "ㄗ",
+	["c"] = "ㄘ",
+	["s"] = "ㄙ",
+	["i"] = "ㄧ",
+	["u"] = "ㄨ",
+	["v"] = "ㄩ",
+	["a"] = "ㄚ",
+	["o"] = "ㄛ",
+	["e"] = "ㄜ",
+	["eh"] = "ㄝ",
+	["ai"] = "ㄞ",
+	["ei"] = "ㄟ",
+	["ao"] = "ㄠ",
+	["ou"] = "ㄡ",
+	["an"] = "ㄢ",
+	["en"] = "ㄣ",
+	["ang"] = "ㄤ",
+	["eng"] = "ㄥ",
+	["er"] = "ㄦ",
+	["1"] = "ˉ",
+	["2"] = "ˊ",
+	["3"] = "ˇ",
+	["4"] = "ˋ",
+	["5"] = "˙",
+}
+
 local missing_sym = "~"
 
 local function split_input(inp, ymkeys, ikeys)
@@ -202,6 +247,41 @@ function terra_to_normal(py)
 	return py
 end
 
+function terra_to_zhuyin(py)
+	py = py:gsub("^(5)(.+)$", "%2%1`")
+	py = py:gsub("^(.+)5$", "5%1")
+	py = py:gsub("`$", "")
+
+	py = py:gsub("iu", "iou")
+	       :gsub("ui", "uei")
+	       :gsub("ong", "ung")
+	       :gsub("yi?", "i")
+	       :gsub("wu?", "u")
+	       :gsub("iu", "v")
+	       :gsub("([jgx])u", "%1v")
+	       :gsub("([iuv])n", "%1en")
+	       :gsub("zhi?", "ㄓ")
+	       :gsub("chi?", "ㄔ")
+	       :gsub("shi?", "ㄕ")
+	       :gsub("ai", "ㄞ")
+	       :gsub("ei", "ㄟ")
+	       :gsub("ao", "ㄠ")
+	       :gsub("ou", "ㄡ")
+	       :gsub("ang", "ㄤ")
+	       :gsub("eng", "ㄥ")
+	       :gsub("an", "ㄢ")
+	       :gsub("en", "ㄣ")
+	       :gsub("er", "ㄦ")
+	       :gsub("eh", "ㄝ")
+	       :gsub("([iv])e", "%1ㄝ")
+
+	for p, z in pairs(py2zy) do
+		py = py:gsub(p,z)
+	end
+
+	return py
+end
+
 function gen_partial_pinyin(code, maps)
 	if code == "" then return "" end
 
@@ -237,18 +317,23 @@ end
 function M.func(inp, seg, env)
 	local codes = split_input(inp, ym_keys, i_keys)
 
+	local terra_to_yibao = terra_to_normal
+	if env.engine.context:get_option("display_zhuyin") then
+		terra_to_yibao = terra_to_zhuyin
+	end
+
 	local pinyin = ""
 	local yibiao = ""
 	for _, code in ipairs(codes) do
 		py = code_to_pinyin(code, maps)
 		if py.err then return end
 		pinyin = pinyin .. " " .. py
-		yibiao = yibiao .. " " .. terra_to_normal(py)
+		yibiao = yibiao .. " " .. terra_to_yibao(py)
 	end
 
 	if codes.remainder then
 		local ppy = gen_partial_pinyin(codes.remainder, maps)
-		yibiao = yibiao .. " " .. terra_to_normal(ppy)
+		yibiao = yibiao .. " " .. terra_to_yibao(ppy)
 		pinyin = pinyin .. " " .. ppy:gsub("%d", "")
 	end
 
