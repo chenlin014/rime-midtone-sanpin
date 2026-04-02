@@ -69,6 +69,8 @@ tonal_letters = {
 	["n4"] = "ǹ",
 }
 
+local missing_sym = "~"
+
 local function split_input(inp, ymkeys, ikeys)
 	codes = {}
 
@@ -143,7 +145,7 @@ local function code_to_pinyin(code, maps)
 	end
 
 	local rime_type = maps.key2type[code:sub(2,2)] or ""
-	local tone = maps.key2tone[code:sub(2,2)] or "1"
+	local tone = maps.key2tone[code:sub(2,2)] or ""
 
 	local onset = ""
 	local final = ""
@@ -168,8 +170,8 @@ local function code_to_pinyin(code, maps)
 	return make_pinyin(onset, final, tone, rime_type)
 end
 
-function terra_to_pinyin(py)
-	py = py:gsub("5", "")
+function terra_to_normal(py)
+	py = py:gsub("5$", "")
 
 	py = py:gsub("([aeiou])(ng?)([1234])", "%1%3%2")
 	py = py:gsub("([aeiou])(r)([1234])", "%1%3%2")
@@ -185,6 +187,25 @@ function terra_to_pinyin(py)
 	py = py:gsub("v", "ü")
 	py = py:gsub("eh", "ê")
 
+	py = py:gsub("1", "ˉ")
+	py = py:gsub("2", "ˊ")
+	py = py:gsub("3", "ˇ")
+	py = py:gsub("4", "ˋ")
+	py = py:gsub("5", "˙")
+
+	return py
+end
+
+function gen_partial_pinyin(code, maps)
+	if code == "" then return "" end
+
+	if #code == 1 then
+		return maps.key2onset[code] or missing_sym
+	end
+
+	local py = maps.key2tone[code:sub(2,2)] or ""
+	py = py .. (maps.key2onset[code:sub(1,1)] or missing_sym)
+	py = py .. (maps.key2type[code:sub(2,2)] or missing_sym)
 	return py
 end
 
@@ -203,27 +224,40 @@ function M.func(inp, seg, env)
 	local codes = split_input(inp, ym_keys, i_keys)
 
 	local pinyin = ""
-	local preedit = ""
+	local yibiao = ""
 	for _, code in ipairs(codes) do
 		py = code_to_pinyin(code, maps)
 		if py.err then return end
-		pinyin = pinyin .. py
-		preedit = preedit .. " " .. terra_to_pinyin(py)
+		pinyin = pinyin .. " " .. py
+		yibiao = yibiao .. " " .. terra_to_normal(py)
 	end
 
-	preedit = preedit:gsub("^ ", "")
 	if codes.remainder then
-		preedit = preedit .. " " .. codes.remainder
-		--local cand = Candidate("midtone", seg.start, seg._end, preedit, " ")
-		--cand.preedit = preedit
-		--yield(cand)
+		local ppy = gen_partial_pinyin(codes.remainder, maps)
+		yibiao = yibiao .. " " .. terra_to_normal(ppy)
+		pinyin = pinyin .. " " .. ppy:gsub("%d", "")
 	end
+
+	yibiao = yibiao:gsub("^ ", "")
+	pinyin = pinyin:gsub("^ ", "")
 
 	local t = env.tran:query(pinyin,seg)
-	if not t then return end
+
+
+	local yb_cand = Candidate("yibiao", seg.start, seg._end, yibiao, " ")
+	local cand_cnt = 0
+
+	if not t then
+		yield(yb_cand)
+		return
+	end
+
 	for cand in t:iter() do
-		cand.preedit = preedit
-		cand.type = "midtone"
+		cand_cnt = cand_cnt + 1
+		if cand_cnt == 1 then
+			cand.comment = yibiao
+		end
+		cand.preedit = ""
 		yield(cand)
 	end
 end
