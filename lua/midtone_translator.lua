@@ -344,20 +344,13 @@ function M.func(inp, seg, env)
 	local t = env.tran:query(pinyin,seg)
 
 
-	local yb_cand = Candidate("yibiao", seg.start, seg._end, yibiao, " ")
-	local cand_cnt = 0
-
 	if not t then
-		yield(yb_cand)
+		yield(Candidate("yibiao", seg.start, seg._end, yibiao, " "))
 		return
 	end
 
 	for cand in t:iter() do
-		cand_cnt = cand_cnt + 1
-		if cand_cnt == 1 then
-			cand.comment = yibiao
-		end
-		cand.preedit = ""
+		cand.preedit = yibiao
 		yield(cand)
 	end
 end
