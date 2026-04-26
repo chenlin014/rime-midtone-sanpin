@@ -319,7 +319,7 @@ function M.func(inp, seg, env)
 	local codes = split_input(inp, ym_keys, i_keys)
 
 	local terra_to_yibao = terra_to_normal
-	if env.engine.context:get_option("display_zhuyin") then
+	if env.engine.context:get_option("zhuyin") then
 		terra_to_yibao = terra_to_zhuyin
 	end
 

@@ -22,6 +22,8 @@ switches:
     states: [ 漢字, 汉字 ]
   - name: ascii_punct
     states: [ 。，, ．， ]
+  - name: zhuyin
+    states: [ 拼音, 注音 ]
 
 engine:
   processors:
