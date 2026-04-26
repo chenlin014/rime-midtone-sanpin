@@ -13,9 +13,9 @@ config.onset_map = {
 }
 
 config.type_map = {
-	"Y","Y","Y","Y","Y","u","u","u","u","u",
+	"Y","Y","Y","Y","Y","M","M","M","M","M",
 	"i","i","i","i","i","","","","","",
-	"v","v","v","v","v","M","M","M","M","M"
+	"v","v","v","v","v","u","u","u","u","u"
 }
 
 config.tone_map = {

@@ -119,22 +119,22 @@ midtone_to_zhuyin:
     - xform/丙/韻3/
     - xform/丁/韻4/
     - xform/戊/韻5/
-    - xform/己/5ㄨ/
-    - xform/庚/4ㄨ/
-    - xform/辛/3ㄨ/
-    - xform/壬/2ㄨ/
-    - xform/癸/1ㄨ/
+    - xform/己/名5/
+    - xform/庚/名4/
+    - xform/辛/名3/
+    - xform/壬/名2/
+    - xform/癸/名1/
     # 下排     
     - xform/子/1ㄩ/
     - xform/丑/2ㄩ/
     - xform/寅/3ㄩ/
     - xform/卯/4ㄩ/
     - xform/辰/5ㄩ/
-    - xform/巳/名5/
-    - xform/午/名4/
-    - xform/未/名3/
-    - xform/申/名2/
-    - xform/酉/名1/
+    - xform/巳/5ㄨ/
+    - xform/午/4ㄨ/
+    - xform/未/3ㄨ/
+    - xform/申/2ㄨ/
+    - xform/酉/1ㄨ/
     # 中排     
     - xform/壹/1ㄧ/
     - xform/貳/2ㄧ/
