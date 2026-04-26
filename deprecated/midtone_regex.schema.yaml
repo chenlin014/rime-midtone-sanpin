@@ -2,13 +2,13 @@
 # encoding: utf-8
 
 schema:
-  schema_id: midtone_lua
-  name: 中調三拼（腳本）
-  version: "2026-04-01"
+  schema_id: midtone_regex
+  name: 中調三拼（正則）
+  version: "2026-01-26"
   author:
     - 「陳林」<1chen0bryan@gmail.com>
   description: |
-    中調三拼方案
+    地球拼音＋三拼方案。
   dependencies:
     - stroke
 
@@ -42,7 +42,7 @@ engine:
   translators:
     - punct_translator
     - reverse_lookup_translator
-    - lua_translator@*midtone_translator
+    - script_translator
   filters:
     - simplifier
     - uniquifier
@@ -50,10 +50,26 @@ engine:
 speller:
   alphabet: "zyxwvutsrqponmlkjihgfedcba;,./"
   initials: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    __patch:
+      - midtone_sanpin:/terra_to_zhuyin
+      - midtone_sanpin:/zhuyin_to_midtone
+      - midtone_sanpin:/use_qwerty_layout
 
 translator:
   dictionary: midtone_sanpin
   prism: midtone_sanpin
+  preedit_format:
+    __patch:
+      - midtone_sanpin:/revert_qwerty
+
+      - midtone_sanpin:/midtone_to_zhuyin
+      #- midtone_sanpin:/bpmf_unmark_first_tone # 不標一聲
+      #- __append: [ xlit|ㆬㄯ|ㄇㄋ| ]
+
+      - midtone_sanpin:/zhuyin_to_terra
+      - midtone_sanpin:/terra_to_pinyin
 
 reverse_lookup:
   dictionary: stroke
