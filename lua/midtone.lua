@@ -376,8 +376,8 @@ function P.func(key, env)
 	local back_seg = context.composition:back()
 	local seg_len = back_seg.length
 	local input = context.input or ""
-	input = input:sub(back_seg.start+1, back_seg._end)
-	local codes = split_input(input, ym_keys, i_keys)
+	local seg_code = input:sub(back_seg.start+1, back_seg._end)
+	local codes = split_input(seg_code, ym_keys, i_keys)
 
 	if not codes.remainder and back_seg:has_tag("abc") and sym then
 		if not env.initials:find(sym,1,true) and commit_text then
@@ -399,4 +399,36 @@ function P.func(key, env)
 	return 2
 end
 
-return { tran=T, proc=P }
+local S = {}
+
+function S.init(env)
+	env.alphabet = env.engine.schema.config:get_string("speller/alphabet") or ""
+end
+
+function S.fini(env)
+end
+
+function S.func(segmentation, env)
+	local input = segmentation.input
+	local codes = split_input(input, ym_keys, i_keys)
+
+	if not input:match("^[".. env.alphabet .."]+$") then
+		return true
+	end
+
+	if codes.remainder and codes.remainder:match("^%p$") then
+		if #input > 1 then
+			local abc_seg = Segment(0, #input - 1)
+			abc_seg.tags = Set({ "abc" })
+			segmentation:add_segment(abc_seg)
+		end
+		local seg = Segment(#input - 1, #input)
+		seg.tags = Set({ "punct" })
+		segmentation:add_segment(seg)
+		return false
+	end
+
+	return true
+end
+
+return { tran=T, proc=P, seg=S }

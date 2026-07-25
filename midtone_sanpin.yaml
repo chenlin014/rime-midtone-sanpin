@@ -1,0 +1,358 @@
+# 地球拼音轉字母注音
+# 分流自rime-bopomofo (https://github.com/rime/rime-bopomofo)
+terra_to_zhuyin:
+  __append:
+    - xform/^r5$/er5/  # 〜兒
+    - xform/iu/iou/
+    - xform/ui/uei/
+    - xform/ong/ung/
+    - xform/^yi?/i/
+    - xform/^wu?/u/
+    - xform/iu/v/
+    - xform/^([jqx])u/$1v/
+    - xform/([iuv])n/$1en/
+    - xform/^zhi?/Z/
+    - xform/^chi?/C/
+    - xform/^shi?/S/
+    - xform/^([zcsr])i/$1/
+    - xform/ai/A/
+    - xform/ei/I/
+    - xform/ao/O/
+    - xform/ou/U/
+    - xform/ang/K/
+    - xform/eng/G/
+    - xform/an/M/
+    - xform/en/N/
+    - xform/er/R/
+    - xform/eh/E/
+    - xform/ê/E/
+    - xform/([iv])e/$1E/
+
+    # 鼻韻
+    - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)m(\d)$/$1W$2/  # ㆬ（呣）
+    - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)n(\d)$/$1L$2/  # ㄯ
+    - xform/^([bpmfdtnlgkhjqxZCSrzcs]?)ng(\d)$/$1H$2/ # ㆭ
+
+# 注音轉中調三拼
+zhuyin_to_midtone:
+  __append:
+    # 若無標明聲調、則默認爲是輕聲
+    - xform/(\D)$/${1}5/
+
+    # 尖音
+    - derive/j([iv])/z$1/
+    - derive/q([iv])/c$1/
+    - derive/x([iv])/s$1/
+    # 團音
+    - xform/j([iv])/g$1/
+    - xform/q([iv])/k$1/
+    - xform/x([iv])/h$1/
+
+    # ㄧㄛ同ㄧㄡ
+    - derive/iU/io/
+    # ㄧㄟ同ㄧㄝ
+    - derive/iE/iI/
+    # ㄨㄝ同ㄨㄟ
+    - derive/uI/uE/
+    # ㄨㄡ同ㄨㄛ
+    - derive/uo/uU/
+    # ㄩㄟ同ㄩㄝ
+    - derive/vE/vI/
+
+    # 聲母名調區
+    # 用於輸入知吃等空韻字和的了等常用字
+    - derive/([bpmf])o(?=\d)/$1名/
+    - derive/([dtnlgkh])e(?=\d)/$1名/
+    - xform/([ZCSrzcs])(?=\d)/$1名/
+
+    # 把聲調放在聲母和韻母之間
+    - xform/([iuvaoeEAIOUMNKGRWLH]+)([1-5])$/$2$1/
+    # 無聲母、有韻頭
+    - xform/^([1-5][iuv])([aoeEAIOUMNKGRWLH]+)$/無$1$2/
+    # 無聲母、無韻頭
+    - xform/^([1-5])([aoeEAIOUMNKGRWLH]+)$/$2韻$1/
+    # 聲母加韻頭
+    - xform/^([bpmfdtnlgkhjqxZCSrzcs][1-5][iuv])$/$1无/
+    # 只有韻頭
+    - xform/^([1-5][iuv])$/介$1/
+    # 換成眞注音
+    - 'xlit|bpmfdtnlgkhjqxZCSrzcs|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ|'
+    - 'xlit|iuvaoeEAIOUMNKGRWLH|ㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㆬㄯㆭ|'
+
+    # -- 調區 --
+    # 上排
+    - xform/韻1/甲/
+    - xform/韻2/乙/
+    - xform/韻3/丙/
+    - xform/韻4/丁/
+    - xform/韻5/戊/
+    - xform/5ㄨ/己/
+    - xform/4ㄨ/庚/
+    - xform/3ㄨ/辛/
+    - xform/2ㄨ/壬/
+    - xform/1ㄨ/癸/
+    # 下排
+    - xform/1ㄩ/子/
+    - xform/2ㄩ/丑/
+    - xform/3ㄩ/寅/
+    - xform/4ㄩ/卯/
+    - xform/5ㄩ/辰/
+    - xform/名5/巳/
+    - xform/名4/午/
+    - xform/名3/未/
+    - xform/名2/申/
+    - xform/名1/酉/
+    # 中排
+    - xform/1ㄧ/壹/
+    - xform/2ㄧ/貳/
+    - xform/3ㄧ/叄/
+    - xform/4ㄧ/肆/
+    - xform/5ㄧ/伍/
+    - xlit|54321|陸柒捌玖拾|
+
+# 中調三拼轉注音
+midtone_to_zhuyin:
+  __append:
+    # 上排
+    - xform/甲/韻1/
+    - xform/乙/韻2/
+    - xform/丙/韻3/
+    - xform/丁/韻4/
+    - xform/戊/韻5/
+    - xform/己/名5/
+    - xform/庚/名4/
+    - xform/辛/名3/
+    - xform/壬/名2/
+    - xform/癸/名1/
+    # 下排     
+    - xform/子/1ㄩ/
+    - xform/丑/2ㄩ/
+    - xform/寅/3ㄩ/
+    - xform/卯/4ㄩ/
+    - xform/辰/5ㄩ/
+    - xform/巳/5ㄨ/
+    - xform/午/4ㄨ/
+    - xform/未/3ㄨ/
+    - xform/申/2ㄨ/
+    - xform/酉/1ㄨ/
+    # 中排     
+    - xform/壹/1ㄧ/
+    - xform/貳/2ㄧ/
+    - xform/叄/3ㄧ/
+    - xform/肆/4ㄧ/
+    - xform/伍/5ㄧ/
+    - xlit|陸柒捌玖拾|54321|
+
+    - xform/(ㄅ|ㄆ|ㄇ|ㄈ)名(\d)/$1$2ㄛ/
+    - xform/(ㄉ|ㄊ|ㄋ|ㄌ|ㄍ|ㄎ|ㄏ)名(\d)/$1$2ㄜ/
+
+    # 二缺一
+    - xform/([1-5])((ㄧ|ㄨ|ㄩ)?(ㄚ|ㄛ|ㄜ|ㄝ|ㄞ|ㄟ|ㄠ|ㄡ|ㄢ|ㄣ|ㄤ|ㄥ|ㄦ|ㆬ|ㄯ|ㆭ|无))/$2$1"/
+    - xform/(?<=介)([1-5])(ㄧ|ㄨ|ㄩ)/$2$1"/
+    - xform/(ㄅ|ㄆ|ㄇ|ㄈ|ㄉ|ㄊ|ㄋ|ㄌ|ㄍ|ㄎ|ㄏ|ㄐ|ㄑ|ㄒ|ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)([1-5])/"$2$1/
+    - xform/(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)名(\d)/$1$2"/
+    - xform/(\S+)(5)(?=")/$2$1/
+    - xform/(?<=")(5)(\S+)/$2$1/
+    - xform/"//
+
+    - xlit/12345/ˉˊˇˋ˙/
+
+    - xform/无|韻//
+    - xform/(介|無)(?=\S)//
+
+    - xform/ㄧㄛ/ㄧㄡ/
+    - xform/ㄧㄟ/ㄧㄝ/
+    - xform/ㄨㄝ/ㄨㄟ/
+    - xform/ㄨㄡ/ㄨㄛ/
+    - xform/ㄩㄟ/ㄩㄝ/
+
+    - xform/ㄗ(ㄧ|ㄩ)/ㄐ$1/
+    - xform/ㄘ(ㄧ|ㄩ)/ㄑ$1/
+    - xform/ㄙ(ㄧ|ㄩ)/ㄒ$1/
+    - xform/ㄍ(ㄧ|ㄩ)/ㄐ$1/
+    - xform/ㄎ(ㄧ|ㄩ)/ㄑ$1/
+    - xform/ㄏ(ㄧ|ㄩ)/ㄒ$1/
+
+# 注音不標一聲
+bpmf_unmark_first_tone:
+  __append:
+    - xform/(ㄧ|ㄨ|ㄩ|ㄚ|ㄛ|ㄜ|ㄝ|ㄞ|ㄟ|ㄠ|ㄡ|ㄢ|ㄣ|ㄤ|ㄥ|ㄦ|ㆬ|ㄯ|ㆭ)ˉ/$1/
+    - xform/(^|\s)(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)$/$1$2＊/ # 標明未定調
+    - xform/(ㄓ|ㄔ|ㄕ|ㄖ|ㄗ|ㄘ|ㄙ)ˉ/$1/
+
+# 注音轉地球拼音
+zhuyin_to_terra:
+  __append:
+    - xlit|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ|bpmfdtnlgkhjqxZCSrzcs|
+    - xlit|ㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㆬㄯㆭ|iuvaoeEAIOUMNKGRWLH|
+    - xlit|ˉˊˇˋ˙|12345|
+    - xform/(?<=\b)5(\S+)/$1˙/
+    - xform/(\S+)5(?=\b)/˙$1/
+    - xform/˙/5/
+
+    - xform/([iv])E/$1e/
+    - xform/E/eh/
+    - xform/R/er/
+    - xform/N/en/
+    - xform/M/an/
+    - xform/G/eng/
+    - xform/K/ang/
+    - xform/U/ou/
+    - xform/O/ao/
+    - xform/I/ei/
+    - xform/A/ai/
+    - xform/(?<=\b)([zcsrZCS])(\d)/$1i$2/
+    - xform/S/sh/
+    - xform/C/ch/
+    - xform/Z/zh/
+    - xform/([iuv])en/$1n/
+    - xform/(?<=\b)v/iu/
+    - xform/v(?=ng)/iu/
+    - xform/(?<=\b)i(\d|\b|n)/yi$1/
+    - xform/(?<=\b)u(\d|\b)/wu$1/
+    - xform/(?<=\b)i/y/
+    - xform/(?<=\b)u/w/
+    - xform/wn/wen/
+    - xform/([jqx])v/$1u/
+    - xform/ung/ong/
+    - xform/uei/ui/
+    - xform/iou/iu/
+    - xform/W/m/
+    - xform/L/n/
+    - xform/H/ng/
+
+# 地球拼音轉普通拼音
+# 分流自地球拼音(https://github.com/rime/rime-terra-pinyin)
+terra_to_pinyin:
+  __append:
+    - xform/eh/ê/
+    - xform/v/ü/
+    - xform/5(?=\b)//
+
+    - xform ([aeiou])(ng?|r)([1234]) $1$3$2
+    - xform ([aeo])([iuo])([1234]) $1$3$2
+    - xform ng([1234]) n$1g
+    - xform a1 ā
+    - xform a2 á
+    - xform a3 ǎ
+    - xform a4 à
+    - xform e1 ē
+    - xform e2 é
+    - xform e3 ě
+    - xform e4 è
+    - xform o1 ō
+    - xform o2 ó
+    - xform o3 ǒ
+    - xform o4 ò
+    - xform i1 ī
+    - xform i2 í
+    - xform i3 ǐ
+    - xform i4 ì
+    - xform u1 ū
+    - xform u2 ú
+    - xform u3 ǔ
+    - xform u4 ù
+    - xform ü1 ǖ
+    - xform ü2 ǘ
+    - xform ü3 ǚ
+    - xform ü4 ǜ
+    - xform ê1 ê̄
+    - xform ê2 ế
+    - xform ê3 ê̌
+    - xform ê4 ề
+    - xform m1 m̄
+    - xform m2 ḿ
+    - xform m3 m̌ 
+    - xform m4 m̀
+    - xform n1 n̄
+    - xform n2 ń
+    - xform n3 ň
+    - xform n4 ǹ
+
+    - xlit|12345|ˉˊˇˋ˙|
+
+# ＝＝＝＝＝＝＝＝
+# ＝＝鍵盤佈局＝＝
+# ＝＝＝＝＝＝＝＝
+
+use_qwerty_layout:
+  __append:
+    # 聲母布局
+    - xlit|ㄆㄘㄊㄎ＊＊ㄔㄖ|qwertyui|
+    - xlit|ㄅㄗㄉㄍ無ㄏㄓㄋㄌ|asdfghjkl|
+    - xlit|ㄈㄙㄕ介＊＊ㄇ|zxcvbnm|
+    # 韻母布局
+    - xlit|ㄯㆭㄦㆬㄞㄝㄛ|qweruio|
+    - xlit|ㄣㄥㄤㄢ＊ㄜㄚㄟㄡ无|asdfghjkl;|
+    - xlit|ㄠ|m|
+    # QWERTY
+    - xlit|甲乙丙丁戊己庚辛壬癸|qwertyuiop|
+    - xlit|壹貳叄肆伍陸柒捌玖拾|asdfghjkl;|
+    - xlit|子丑寅卯辰巳午未申酉|zxcvbnm,./|
+
+revert_qwerty:
+  __append:
+    # 運算輔助
+    - xform/(\S+)/"$1"/
+
+    # 無頭區
+    - xform/(?<=")(.)q(?=")/Y1$1/
+    - xform/(?<=")(.)w(?=")/Y2$1/
+    - xform/(?<=")(.)e(?=")/Y3$1/
+    - xform/(?<=")(.)r(?=")/Y4$1/
+    - xform/(?<=")(.)t(?=")/Y5$1/
+
+    # 恢復韻母
+    - xform/(?<="\S\S)q(?=")/ㄯ/
+    - xform/(?<="\S\S)w(?=")/ㆭ/
+    - xform/(?<="\S\S)e(?=")/ㄦ/
+    - xform/(?<="\S\S)r(?=")/ㆬ/
+    - xform/(?<="\S\S)u(?=")/ㄞ/
+    - xform/(?<="\S\S)i(?=")/ㄝ/
+    - xform/(?<="\S\S)o(?=")/ㄛ/
+
+    - xform/(?<="\S\S)a(?=")/ㄣ/
+    - xform/(?<="\S\S)s(?=")/ㄥ/
+    - xform/(?<="\S\S)d(?=")/ㄤ/
+    - xform/(?<="\S\S)f(?=")/ㄢ/
+    - xform/(?<="\S\S)h(?=")/ㄜ/
+    - xform/(?<="\S\S)j(?=")/ㄚ/
+    - xform/(?<="\S\S)k(?=")/ㄟ/
+    - xform/(?<="\S\S)l(?=")/ㄡ/
+    - xform/(?<="\S\S);(?=")/无/
+
+    - xform/(?<="\S\S)m(?=")/ㄠ/
+
+    - xform/Y(\d)(\S+)/$2韻$1/
+
+    # 恢復聲母
+    - xform/(?<=")q/ㄆ/
+    - xform/(?<=")w/ㄘ/
+    - xform/(?<=")e/ㄊ/
+    - xform/(?<=")r/ㄎ/
+    - xform/(?<=")u/ㄔ/
+    - xform/(?<=")i/ㄖ/
+
+    - xform/(?<=")a/ㄅ/
+    - xform/(?<=")s/ㄗ/
+    - xform/(?<=")d/ㄉ/
+    - xform/(?<=")f/ㄍ/
+    - xform/(?<=")g/無/
+    - xform/(?<=")h/ㄏ/
+    - xform/(?<=")j/ㄓ/
+    - xform/(?<=")k/ㄋ/
+    - xform/(?<=")l/ㄌ/
+
+    - xform/(?<=")z/ㄈ/
+    - xform/(?<=")x/ㄙ/
+    - xform/(?<=")c/ㄕ/
+    - xform/(?<=")v/介/
+    - xform/(?<=")m/ㄇ/
+
+    # 移除運算輔助
+    - xform/"//
+
+    # 恢復通用鍵位名
+    - xlit|qwertyuiop|甲乙丙丁戊己庚辛壬癸|
+    - xlit|asdfghjkl;|壹貳叄肆伍陸柒捌玖拾|
+    - xlit|zxcvbnm,./|子丑寅卯辰巳午未申酉|

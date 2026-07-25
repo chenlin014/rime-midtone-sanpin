@@ -7,9 +7,9 @@ config.keyboard = {
 }
 
 config.onset_map = {
-	"p", "c", "t",  "k", nil, nil, "ch", "r", nil, nil,
-	"b", "z", "d",  "g", "", "h",  "zh", "n", "l", nil,
-	"f", "s", "sh", "I", nil, nil, "m"
+	"p", "c", "t", "k", nil, nil, "ch", "r", nil, nil,
+	"b", "z", "d", "g", "", "h",  "zh", "n", "l", "m",
+	"f", "s", nil, "I", nil, nil, "sh"
 }
 
 config.type_map = {

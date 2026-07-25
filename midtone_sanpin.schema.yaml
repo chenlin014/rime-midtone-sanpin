@@ -28,16 +28,17 @@ switches:
 engine:
   processors:
     - lua_processor@*common.commit_n_return
+    - selector
     - ascii_composer
     - lua_processor@*midtone*proc
     - recognizer
     - key_binder
     - speller
     - punctuator
-    - selector
     - navigator
     - express_editor
   segmentors:
+    - lua_segmentor@*midtone*seg
     - ascii_segmentor
     - matcher
     - abc_segmentor
