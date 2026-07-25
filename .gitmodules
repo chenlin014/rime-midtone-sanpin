@@ -1,0 +1,3 @@
+[submodule "lua/common"]
+	path = lua/common
+	url = git@github.com:chenlin014/rime-lua.git

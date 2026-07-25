@@ -27,7 +27,9 @@ switches:
 
 engine:
   processors:
+    - lua_processor@*common.commit_n_return
     - ascii_composer
+    - lua_processor@*common.trikey*proc
     - recognizer
     - key_binder
     - speller
