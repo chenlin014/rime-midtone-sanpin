@@ -29,7 +29,7 @@ engine:
   processors:
     - lua_processor@*common.commit_n_return
     - ascii_composer
-    - lua_processor@*common.trikey*proc
+    - lua_processor@*midtone*proc
     - recognizer
     - key_binder
     - speller
@@ -46,7 +46,7 @@ engine:
   translators:
     - punct_translator
     - reverse_lookup_translator
-    - lua_translator@*midtone_translator
+    - lua_translator@*midtone*tran
   filters:
     - simplifier
     - uniquifier

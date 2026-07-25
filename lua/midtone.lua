@@ -1,4 +1,5 @@
 local config = require("midtone_config")
+local key_conv = require("common/key_conv")
 
 local ym_keys = ""
 local i_keys = ""
@@ -304,18 +305,18 @@ function gen_partial_pinyin(code, maps)
 	return py
 end
 
-local M={}
+local T={}
 
-function M.init(env)
+function T.init(env)
 	local midtone = Schema(env.engine.schema.schema_id or "")
 	env.tran = Component.Translator(env.engine, midtone, "translator", "script_translator")
 end
 
-function M.fini(env)
+function T.fini(env)
 	env.tran:disconnect()
 end
 
-function M.func(inp, seg, env)
+function T.func(inp, seg, env)
 	local codes = split_input(inp, ym_keys, i_keys)
 
 	local terra_to_yibao = terra_to_normal
@@ -355,4 +356,47 @@ function M.func(inp, seg, env)
 	end
 end
 
-return M
+local P={}
+
+function P.init(env)
+	local config = env.engine.schema.config
+	env.alphabet = config:get_string("speller/alphabet") or ""
+	env.initials = config:get_string("speller/initials") or env.alphabet
+end
+
+function P.fini(env)
+end
+
+function P.func(key, env)
+	local repr = key:repr()
+	local sym = key_conv.repr2char[repr]
+
+	local context = env.engine.context
+	local commit_text = context:get_commit_text() or ""
+	local back_seg = context.composition:back()
+	local seg_len = back_seg.length
+	local input = context.input or ""
+	input = input:sub(back_seg.start+1, back_seg._end)
+	local codes = split_input(input, ym_keys, i_keys)
+
+	if not codes.remainder and back_seg:has_tag("abc") and sym then
+		if not env.initials:find(sym,1,true) and commit_text then
+			if repr ~= "space" then
+				env.engine:commit_text(commit_text)
+				context:clear()
+			end
+		end
+	elseif back_seg:has_tag("punct") and seg_len == 1 and not key:release() then
+		if input ~= "" and env.initials:find(input:sub(#input,#input),1,true) then
+			if sym and env.alphabet:find(sym,1,true) then
+				context:clear()
+				context:push_input(input..sym)
+				return 1
+			end
+		end
+	end
+
+	return 2
+end
+
+return { tran=T, proc=P }
